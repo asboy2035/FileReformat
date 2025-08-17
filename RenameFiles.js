@@ -2,40 +2,47 @@
 const fs = require('fs');
 const path = require('path');
 
-const args = process.argv.slice(2);
-const folder = args[0];
-const mode = args.find(a => a === '--show' || a === '--rename');
-const formatArg = args.find(a => a.startsWith('--format='));
-const format = formatArg ? formatArg.split('=')[1].toLowerCase() : 'pascal';
+const LAST_TASK_FILE = path.resolve(__dirname, 'LastTask.json');
 
-if (!folder || !mode) {
-  console.log('Usage: node RenameFiles.js <folder> --show|--rename [--format=pascal|snake|dash|camel|screaming]');
-  process.exit(1);
+let args = process.argv.slice(2);
+
+// Check if continuing previous task
+let continueTask = args.includes('--continue');
+let folder, mode, format;
+
+// If continuing, read LastTask.json
+if (continueTask) {
+  if (!fs.existsSync(LAST_TASK_FILE)) {
+    console.log('No LastTask.json found to continue.');
+    process.exit(1);
+  }
+  const task = JSON.parse(fs.readFileSync(LAST_TASK_FILE, 'utf8'));
+  folder = task.directory;
+  format = task.format;
+  mode = '--rename';
+} else {
+  folder = args[0];
+  mode = args.find(a => a === '--show' || a === '--rename');
+  const formatArg = args.find(a => a.startsWith('--format='));
+  format = formatArg ? formatArg.split('=')[1].toLowerCase() : 'pascal';
+
+  if (!folder || !mode) {
+    console.log('Usage: node RenameFiles.js <folder> --show|--rename [--format=pascal|snake|dash|camel|screaming] or --continue');
+    process.exit(1);
+  }
 }
 
-// extension normalization map
-const EXT_MAP = {
-  '.JPG': '.jpeg',
-  '.JPEG': '.jpeg',
-  '.PNG': '.png',
-  '.GIF': '.gif',
-  '.TIFF': '.tiff',
-  '.BMP': '.bmp',
-};
-
-function normalizeExtension(ext) {
-  if (!ext) return '';
-  const upper = ext.toUpperCase();
-  return EXT_MAP[upper] || ext.toLowerCase();
+// Save task for continuation if showing
+if (mode === '--show' && !continueTask) {
+  fs.writeFileSync(LAST_TASK_FILE, JSON.stringify({ directory: folder, format }, null, 2));
 }
 
-// formatting functions
 function splitWords(name) {
   return name
-    .split(/[_\-.]/g) // split on common separators
+    .split(/[_\-.]/g)
     .map(part => part
-      .split(/(?=[A-Z])/g) // split before uppercase letters
-      .map(w => w.toLowerCase()) // normalize fully uppercase words
+      .split(/(?=[A-Z])/g)
+      .map(w => w.toLowerCase())
       .filter(Boolean)
     )
     .flat()
@@ -71,6 +78,9 @@ function toScreamingCase(name) {
     .join('_');
 }
 
+const EXT_MAP = { '.JPG': '.jpeg', '.JPEG': '.jpeg', '.PNG': '.png', '.GIF': '.gif', '.TIFF': '.tiff', '.BMP': '.bmp' };
+function normalizeExtension(ext) { if (!ext) return ''; const upper = ext.toUpperCase(); return EXT_MAP[upper] || ext.toLowerCase(); }
+
 function formatName(name) {
   const ext = path.extname(name);
   const base = path.basename(name, ext);
@@ -90,12 +100,11 @@ function formatName(name) {
   return newBase + newExt;
 }
 
-// recursive walk
 function walk(dir) {
   let results = [];
   fs.readdirSync(dir, { withFileTypes: true }).forEach(dirent => {
     const res = path.resolve(dir, dirent.name);
-    if (dirent.name.startsWith('.')) return; // ignore dotfiles/folders
+    if (dirent.name.startsWith('.')) return;
     if (dirent.isDirectory()) {
       results = results.concat(walk(res));
     } else {
@@ -113,7 +122,6 @@ files.forEach(file => {
   const dir = path.dirname(file);
   const base = path.basename(file);
   const newName = formatName(base);
-
   if (file !== path.join(dir, newName)) {
     if (!grouped[dir]) grouped[dir] = [];
     grouped[dir].push({ old: base, new: newName });
@@ -125,12 +133,20 @@ if (mode === '--show') {
   for (const dir in grouped) {
     console.log(`directory: ${dir}`);
     console.log('files:');
-    grouped[dir].forEach(f => {
-      console.log(`${f.old} → ${f.new}`);
-    });
+    grouped[dir].forEach(f => console.log(`${f.old} → ${f.new}`));
     console.log('');
   }
+  console.log(`Preview saved! Run "node RenameFiles.js --continue" to rename files.`);
 } else if (mode === '--rename') {
+  // prompt for confirmation
+  const readline = require('readline-sync');
+  console.log(`Ready to rename ${files.length} files in ${folder} using format "${format}".`);
+  const confirm = readline.question('Confirm? (y/n): ');
+  if (confirm.toLowerCase() !== 'y') {
+    console.log('Aborted.');
+    process.exit(0);
+  }
+
   for (const dir in grouped) {
     grouped[dir].forEach(f => {
       const oldPath = path.join(dir, f.old);
@@ -139,4 +155,7 @@ if (mode === '--show') {
       console.log(`Renamed: ${oldPath} → ${newPath}`);
     });
   }
+  // delete LastTask.json after completing
+  if (fs.existsSync(LAST_TASK_FILE)) fs.unlinkSync(LAST_TASK_FILE);
+  console.log('All done!');
 }

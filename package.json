@@ -6,8 +6,14 @@
   "scripts": {
     "test": "node RenameFiles.js examples --show"
   },
-  "keywords": ["formatter", "filenames"],
+  "keywords": [
+    "formatter",
+    "filenames"
+  ],
   "author": "ash",
   "license": "Apache-2.0",
-  "type": "commonjs"
+  "type": "commonjs",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
 }

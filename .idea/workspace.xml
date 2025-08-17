@@ -5,26 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9bf16ba1-0d7a-4d91-8c37-f1701fd72b8c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FileReformat.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RenameFiles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/Anotherfile.js" afterPathEscaped="$PROJECT_DIR$/examples/Another💖file.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/Mytest.md" afterPathEscaped="$PROJECT_DIR$/examples/My🔥test💅.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/Very✨slay.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/another_file123.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/my_awesome_file.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/my_test_file.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/very_slam.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/very_slay.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/very_yass.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RenameFiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/RenameFiles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "asboy2035"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://asboy2035@github.com/asboy2035/FileReformat.git",
+    "accountId": "3a099e4d-a960-4419-accc-5f28f60b6a13"
+  }
+}]]></component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="AUN0kniY" />
   </component>
@@ -111,7 +108,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743535360667</updated>
       <workItem from="1743535360668" duration="84000" />
-      <workItem from="1755417435616" duration="757000" />
+      <workItem from="1755417435616" duration="2063000" />
     </task>
     <servers />
   </component>

@@ -15,7 +15,10 @@ node RenameFiles.js <directory-to-rename>
 - Normalizes file extensions by default (`JPG → jpeg`, `PNG → png`, etc.)
 - Ignore dotfiles/folders to keep them safe (`.gitignore`, `.idea`)
 - Preview changes before renaming: `--show`
+  - Also saves a `LastTask.json` in the script directory for continuation
 - Rename files recursively: `--rename`
+- Continue a previous task (--continue)
+  - Reads `LastTask.json`, prompts for confirmation, renames files, then deletes the JSON
 
 ## Installation
 Make sure you have [Node.js](https://nodejs.org/) installed.
